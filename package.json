@@ -1,0 +1,30 @@
+{
+  "name": "ga-dashboard",
+  "version": "1.0.0",
+  "description": "Gary Gabel's GA4-powered analytics command center.",
+  "main": "server.js",
+  "scripts": {
+    "start": "node server.js",
+    "dev": "nodemon server.js"
+  },
+  "keywords": [
+    "node",
+    "express",
+    "google analytics",
+    "dashboard",
+    "GA4"
+  ],
+  "author": "Gary Gabel",
+  "license": "MIT",
+  "dependencies": {
+    "cheerio": "^1.0.0",
+    "dotenv": "^16.5.0",
+    "express": "^5.1.0",
+    "googleapis": "^148.0.0",
+    "node-fetch": "^3.3.2",
+    "node-schedule": "^2.1.1"
+  },
+  "devDependencies": {
+    "nodemon": "^3.0.2"
+  }
+}

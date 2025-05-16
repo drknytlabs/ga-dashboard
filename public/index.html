@@ -1,0 +1,101 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>📡 Gary Gabel Command Center</title>
+  <link rel="stylesheet" href="style.css" />
+  <link rel="stylesheet" href="vendor/flatpickr.css" />
+  <link href="https://fonts.googleapis.com/css2?family=Orbitron:wght@600&family=Roboto&display=swap" rel="stylesheet">
+</head>
+<body>
+
+<canvas id="worldMapCanvas"></canvas>
+
+<header>
+  <h1>📡 Gary Gabel Command Center</h1>
+  <button id="themeToggle">🌓 Toggle Theme</button>
+</header>
+
+<section id="realtime">
+  <h2>🧍‍♂️ Active Users Right Now: <span id="liveUsers">Loading...</span></h2>
+  <button id="realtime-button">🔁 Refresh</button>
+</section>
+
+<section id="rangePicker">
+  <input id="dateRange" placeholder="Select date range" />
+</section>
+
+<section id="analytics">
+  <canvas id="chart"></canvas>
+</section>
+
+<section id="topPages">
+  <h2>📄 Top Pages</h2>
+  <ul id="topPagesList" class="data-list"></ul>
+</section>
+
+<section id="geoData">
+  <h2>🌍 Live Visitors by Country</h2>
+  <ul id="geoList" class="data-list"></ul>
+</section>
+
+<section id="sessionMetrics">
+  <h2>📊 Session Metrics</h2>
+  <div id="metricsGrid">
+    <div class="metric-box"><strong>Bounce Rate</strong><br><span id="bounceRate">--</span>%</div>
+    <div class="metric-box"><strong>Avg Session</strong><br><span id="avgSession">--</span>s</div>
+    <div class="metric-box"><strong>Engaged Sessions</strong><br><span id="engagedSessions">--</span></div>
+    <div class="metric-box"><strong>Total Sessions</strong><br><span id="totalSessions">--</span></div>
+  </div>
+</section>
+<section id="intelRadar">
+  <h2>📡 Radar Mentions</h2>
+  <button id="radar-button">🔁 Check Radar</button>
+  <ul id="radarFeed" class="data-list"></ul>
+</section>
+
+
+<footer>
+  <p>📅 Built by async – Powered by Inficient 🔥</p>
+</footer>
+
+<script src="vendor/chart.min.js"></script>
+<script src="vendor/flatpickr.min.js"></script>
+<script type="module" src="canvas/background.js"></script>
+<script type="module" src="canvas/pulseDots.js"></script>
+<script src="script.js"></script>
+
+</body>
+</html>
+<!--
+  This HTML file serves as the main structure for the Gary Gabel Command Center dashboard.
+  It includes sections for real-time user data, date range selection, analytics charts,
+  top pages, geographical data, session metrics, and a footer.
+  The file also links to external stylesheets and JavaScript files for functionality and styling.
+  The header contains a title and a theme toggle button, while the body contains various sections
+  for displaying data. The footer provides credit to the developers.
+  The canvas elements are used for rendering the world map and background animations.
+  The script tags at the end load the necessary JavaScript libraries and custom scripts for functionality.
+  The page is designed to be responsive and user-friendly, with a focus on real-time data visualization.
+  The use of external libraries like Chart.js and Flatpickr enhances the functionality of the dashboard.
+  The page is designed to be visually appealing and easy to navigate, with a modern aesthetic.
+  The use of icons and emojis adds a playful touch to the overall design.
+  The page is structured to provide a comprehensive overview of user activity and engagement metrics,
+  making it a valuable tool for monitoring and analyzing website performance.
+  The use of a world map canvas allows for geographical data visualization, enhancing the user experience.
+  The page is designed to be interactive, with buttons for refreshing data and selecting date ranges.
+  The use of a grid layout for session metrics provides a clear and organized presentation of data.
+  The page is designed to be informative and engaging, with a focus on providing valuable insights into user behavior.
+  The use of a footer with credits adds a professional touch to the overall design.
+  The page is designed to be a command center for monitoring and analyzing user activity,
+  providing a comprehensive overview of website performance and engagement metrics.
+  The use of a theme toggle button allows users to customize their experience, enhancing usability.
+  The page is designed to be a powerful tool for website administrators and marketers,
+  providing valuable insights into user behavior and engagement metrics.
+  The use of a responsive design ensures that the page is accessible on various devices,
+  making it a versatile tool for monitoring and analyzing website performance.
+  The page is designed to be a one-stop solution for real-time data visualization and analysis,
+  providing a comprehensive overview of user activity and engagement metrics.
+  The use of a modern aesthetic and playful design elements enhances the overall user experience,
+  making it a valuable tool for website administrators and marketers.
