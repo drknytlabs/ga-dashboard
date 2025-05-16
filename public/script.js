@@ -3,10 +3,13 @@ document.addEventListener('DOMContentLoaded', () => {
   const dateRangeEl = document.getElementById('dateRange');
   let chart;
 
+  // 🌘 Theme toggle
   document.getElementById('themeToggle')?.addEventListener('click', () => {
     document.body.classList.toggle('dark');
+    console.log('🌗 Theme toggled');
   });
 
+  // 📅 Date range picker
   flatpickr(dateRangeEl, {
     mode: 'range',
     dateFormat: 'Y-m-d',
@@ -95,106 +98,55 @@ document.addEventListener('DOMContentLoaded', () => {
       .then(data => {
         const d = data.data;
         document.getElementById('bounceRate').textContent = d.bounceRate;
-        document.getElementById('avgSession').textContent = d.avgSessionDuration;
+        document.getElementById('avgSession').textContent = `${d.avgSessionDuration}s`;
         document.getElementById('engagedSessions').textContent = d.engagedSessions;
         document.getElementById('totalSessions').textContent = d.totalSessions;
       });
   }
 
-  document.getElementById('realtime-button')?.addEventListener('click', loadGeoRealtime);
+  function loadLiveUsers() {
+    fetch('/api/realtime')
+      .then(res => res.json())
+      .then(data => {
+        liveUsersEl.textContent = data.count || '0';
+      })
+      .catch(err => {
+        console.error('⚠️ Realtime error:', err);
+        liveUsersEl.textContent = 'N/A';
+      });
+  }
 
-  // Initial load
+  // 🛰️ Load radar pings
+  function loadRadarIntel() {
+    fetch('/api/radar/google')
+      .then(res => res.json())
+      .then(data => {
+        const section = document.getElementById('radarFeed');
+        section.innerHTML = '';
+        if (!data.success || data.data.length === 0) {
+          section.innerHTML = '<p>No radar pings found.</p>';
+          return;
+        }
+        data.data.forEach(item => {
+          const li = document.createElement('li');
+          li.innerHTML = `<a href="${item.url}" target="_blank">${item.source} | ${item.title}</a><br><small>${new Date(item.date).toLocaleString()}</small>`;
+          section.appendChild(li);
+        });
+      })
+      .catch(err => {
+        console.error('📡 Radar load error:', err);
+      });
+  }
+
+  // 🖲️ Button triggers
+  document.getElementById('realtime-button')?.addEventListener('click', loadGeoRealtime);
+  document.getElementById('radar-button')?.addEventListener('click', loadRadarIntel);
+
+  // 🚀 Initial loads
   loadChartByPagePath('7daysAgo', 'today');
   loadTopPages('7daysAgo', 'today');
   loadSessionMetrics('7daysAgo', 'today');
+  loadLiveUsers();
   loadGeoRealtime();
+  loadRadarIntel();
 });
-function loadRadarIntel() {
-  fetch('/api/radar/google')
-    .then(res => res.json())
-    .then(data => {
-      const section = document.getElementById('radarFeed');
-      section.innerHTML = '';
-      if (!data.success || data.data.length === 0) {
-        section.innerHTML = '<p>No radar pings found.</p>';
-        return;
-      }
-      data.data.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.url}" target="_blank">${item.source} | ${item.title}</a><br><small>${new Date(item.date).toLocaleString()}</small>`;
-        section.appendChild(li);
-      });
-    })
-    .catch(err => {
-      console.error('📡 Radar load error:', err);
-    });
-}// 🛰️ Load radar results
-function loadRadarIntel() {
-  fetch('/api/radar/google')
-    .then(res => res.json())
-    .then(data => {
-      const section = document.getElementById('radarFeed');
-      section.innerHTML = '';
-      if (!data.success || data.data.length === 0) {
-        section.innerHTML = '<p>No radar pings found.</p>';
-        return;
-      }
-      data.data.forEach(item => {
-        const li = document.createElement('li');
-        li.innerHTML = `<a href="${item.url}" target="_blank">${item.source} | ${item.title}</a><br><small>${new Date(item.date).toLocaleString()}</small>`;
-        section.appendChild(li);
-      });
-    })
-    .catch(err => {
-      console.error('📡 Radar load error:', err);
-    });
-}
-
-// Manual button trigger
-document.getElementById('radar-button')?.addEventListener('click', loadRadarIntel);
-
-// Auto-load on page load
-loadRadarIntel();
-async function refreshRadarCache() {
-  const cheerio = require('cheerio');
-  const fetch = require('node-fetch');
-  const terms = ['Gary Gabel', 'The Constitution Kids'];
-  const results = [];
-
-  try {
-    for (const term of terms) {
-      const query = encodeURIComponent(term);
-      const response = await fetch(`https://www.google.com/search?q=${query}&hl=en`, {
-        headers: { 'User-Agent': 'Mozilla/5.0 (CommandRadarBot)' }
-      });
-      const html = await response.text();
-      const $ = cheerio.load(html);
-
-      $('a h3').each((i, el) => {
-        const title = $(el).text();
-        const link = $(el).parent().attr('href');
-        if (title && link && !link.startsWith('/')) {
-          results.push({
-            source: 'Google',
-            title,
-            url: link,
-            date: new Date().toISOString()
-          });
-        }
-      });
-    }
-
-    latestRadarResults = results.slice(0, 15); // Keep top 15
-    console.log(`📡 Radar updated at ${new Date().toLocaleTimeString()}`);
-  } catch (err) {
-    console.error('❌ Radar refresh error:', err.message);
-  }
-}
-schedule.scheduleJob('0 8 * * *', () => {
-  console.log('🔁 Running scheduled radar refresh...');
-  refreshRadarCache();
-});
-refreshRadarCache(); // initial boot-time load
-
-
-

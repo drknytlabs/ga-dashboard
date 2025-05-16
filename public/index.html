@@ -11,6 +11,17 @@
 <body>
 
 <canvas id="worldMapCanvas"></canvas>
+<div id="radarSweep">
+  <svg viewBox="0 0 200 200" xmlns="http://www.w3.org/2000/svg">
+    <defs>
+      <radialGradient id="radarGradient" r="60%">
+        <stop offset="0%" stop-color="rgba(0,255,255,0.2)" />
+        <stop offset="100%" stop-color="rgba(0,255,255,0)" />
+      </radialGradient>
+    </defs>
+    <circle cx="100" cy="100" r="100" fill="url(#radarGradient)" />
+  </svg>
+</div>
 
 <header>
   <h1>📡 Gary Gabel Command Center</h1>
@@ -65,7 +76,7 @@
 <script type="module" src="canvas/background.js"></script>
 <script type="module" src="canvas/pulseDots.js"></script>
 <script src="script.js"></script>
-
+<script type="module" src="canvas/pulseLines.js"></script>
 </body>
 </html>
 <!--
