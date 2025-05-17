@@ -211,3 +211,25 @@ canvas#chart {
   transform: scale(1.03);
   transition: all 0.3s ease-in-out;
 }
+#gallery {
+  margin-top: 4rem;
+}
+
+.photo-grid {
+  display: grid;
+  gap: 1rem;
+  grid-template-columns: repeat(auto-fit, minmax(180px, 1fr));
+}
+
+.photo-grid img {
+  width: 100%;
+  height: auto;
+  border-radius: 8px;
+  box-shadow: 0 0 10px rgba(0,255,255,0.3);
+  transition: transform 0.2s ease;
+}
+
+.photo-grid img:hover {
+  transform: scale(1.03);
+  cursor: pointer;
+}

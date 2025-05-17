@@ -3,6 +3,26 @@ document.addEventListener('DOMContentLoaded', () => {
   const dateRangeEl = document.getElementById('dateRange');
   let chart;
 
+  function loadGallery() {
+  const photoGrid = document.getElementById('photoGrid');
+  const images = [
+    'photo1.jpg',
+    'photo2.jpg',
+    'photo3.jpg'
+    // Add more filenames here
+  ];
+
+  images.forEach(file => {
+    const img = document.createElement('img');
+    img.src = `/photos/${file}`;
+    img.alt = file;
+    img.loading = 'lazy';
+    img.onclick = () => window.open(img.src, '_blank');
+    photoGrid.appendChild(img);
+  });
+}
+
+loadGallery();
   // 🌘 Theme toggle
   document.getElementById('themeToggle')?.addEventListener('click', () => {
     document.body.classList.toggle('dark');
